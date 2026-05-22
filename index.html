@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thiranex Fashion Marketplace</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="logo">Thira<span>Nex</span></div>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">Shop</a>
+            <a href="#ai-stylist-section" class="special-link">AI Stylist</a>
+            <a href="#">Vendor Portal</a>
+        </nav>
+        <div class="nav-actions">
+            <button class="btn-secondary">Login</button>
+            <div class="cart-icon">🛒 <span class="badge">0</span></div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>The Future of <br><span class="highlight">Multi-Vendor</span> Fashion</h1>
+            <p>Curated boutique collections driven by smart AI styling tailored just for you.</p>
+            <a href="#shop" class="btn-primary">Explore Marketplace</a>
+        </div>
+    </section>
+
+    <section id="ai-stylist-section" class="ai-stylist-container">
+        <div class="section-header">
+            <h2>✨ Interactive AI Fashion Stylist</h2>
+            <p>Describe an outfit or an occasion, and let our smart engine compile your look.</p>
+        </div>
+        
+        <div class="ai-box">
+            <div class="form-group">
+                <label for="ai-prompt">What's the vibe you are looking for?</label>
+                <input type="text" id="ai-prompt" placeholder="e.g., Semi-formal evening dinner layout, dark academia style">
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="ai-occasion">Occasion</label>
+                    <select id="ai-occasion">
+                        <option value="casual">Casual Outing</option>
+                        <option value="formal">Business Formal</option>
+                        <option value="party">Party / Nightout</option>
+                    </select>
+                </div>
+                <button class="btn-ai" onclick="getAIRecommendation()">Consult AI Stylist</button>
+            </div>
+
+            <div id="ai-response" class="ai-response-box" style="display: none;">
+                <h4>Stylist Recommendation:</h4>
+                <p id="ai-text">Loading personalized curation...</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2026 Thiranex Internship Project. Built with modern full-stack business logic.</p>
+    </footer>
+
+    <script>
+        function getAIRecommendation() {
+            const prompt = document.getElementById('ai-prompt').value;
+            const occasion = document.getElementById('ai-occasion').value;
+            const responseBox = document.getElementById('ai-response');
+            const responseText = document.getElementById('ai-text');
+
+            if(!prompt) {
+                alert("Please type something for the AI!");
+                return;
+            }
+
+            responseBox.style.display = "block";
+            responseText.innerText = "Analyzing latest fashion trends...";
+
+            // Simulating frontend receiving data from your backend server.js routes
+            setTimeout(() => {
+                responseText.innerText = `AI Suggestion for "${prompt}": Pair sleek charcoal slim-fit trousers with an emerald green silk blouse. Finish with black accent heels and silver minimal jewelry to perfectly match the ${occasion} setting.`;
+            }, 1200);
+        }
+    </script>
+</body>
+</html>
