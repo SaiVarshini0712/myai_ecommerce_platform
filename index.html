@@ -65,7 +65,10 @@
     </footer>
 
     <script>
-        function getAIRecommendation() {
+        // Replace this string with your exact live Render backend service URL link
+        const BACKEND_URL = "https://myai-ecommerce-platform-2.onrender.com";
+
+        async function getAIRecommendation() {
             const prompt = document.getElementById('ai-prompt').value;
             const occasion = document.getElementById('ai-occasion').value;
             const responseBox = document.getElementById('ai-response');
@@ -76,13 +79,36 @@
                 return;
             }
 
+            // Unveil the loader window immediately
             responseBox.style.display = "block";
-            responseText.innerText = "Analyzing latest fashion trends...";
+            responseText.innerText = "Connecting to the AI engine cluster...";
 
-            // Simulating frontend receiving data from your backend server.js routes
-            setTimeout(() => {
-                responseText.innerText = `AI Suggestion for "${prompt}": Pair sleek charcoal slim-fit trousers with an emerald green silk blouse. Finish with black accent heels and silver minimal jewelry to perfectly match the ${occasion} setting.`;
-            }, 1200);
+            try {
+                // Real Live Fetch Request Execution
+                const response = await fetch(`${BACKEND_URL}/api/ai/stylist`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        prompt: prompt,
+                        occasion: occasion
+                    })
+                });
+
+                const result = await response.json();
+
+                if (result.success && result.data) {
+                    responseText.innerText = `${result.data.recommendation} \n\nStyle Tags: ${result.data.suggestedTags.join(', ')}`;
+                } else {
+                    responseText.innerText = "The AI Stylist processed your data but returned an unexpectedly formatted response.";
+                }
+
+            } catch (error) {
+                console.error("API Fetch Error:", error);
+                // Fallback implementation if server sleeps or experiences cold start delay
+                responseText.innerText = `[Live Demo Fallback] AI Suggestion for "${prompt}": Pair sleek charcoal slim-fit trousers with an emerald green silk blouse. Finish with black accent heels for the perfect ${occasion} aesthetic.`;
+            }
         }
     </script>
 </body>
