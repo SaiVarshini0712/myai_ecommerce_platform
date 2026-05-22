@@ -19,13 +19,13 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
  
 // Routes
-app.use('/api/auth', require('./backend/routes/auth'));
-app.use('/api/products', require('./backend/routes/products'));
-app.use('/api/orders',   require('./backend/routes/orders'));
-app.use('/api/vendors',  require('./backend/routes/vendors'));
-app.use('/api/cart',     require('./backend/routes/cart'));
-app.use('/api/ai',       require('./backend/routes/ai'));
-app.use('/api/ai', require('./backend/routes/ai'));
+app.use('/api/auth', require('./auth'));
+app.use('/api/products', require('./products'));
+app.use('/api/orders',   require('./orders'));
+app.use('/api/vendors',  require('./vendors'));
+app.use('/api/cart',     require('./cart'));
+app.use('/api/ai',       require('./ai'));
+app.use('/api/ai', require('./ai'));
 
 // Health check
 app.get('/api/health', (req, res) => {
